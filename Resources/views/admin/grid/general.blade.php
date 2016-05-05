@@ -4,7 +4,10 @@
         $('.jsInsertImage').on('click', function (e) {
             e.preventDefault();
             var mediaId = $(this).data('id');
-            window.opener.includeMedia(mediaId);
+            var additionalData = {
+                'selectedSize': $(this).data('file')
+            };
+            window.opener.includeMedia(mediaId, additionalData);
             window.close();
         });
     });
