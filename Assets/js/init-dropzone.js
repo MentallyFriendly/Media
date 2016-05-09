@@ -8,6 +8,9 @@ $( document ).ready(function() {
     });
     myDropzone.on("queuecomplete", function(file, http) {
         window.setTimeout(function(){
+            if(redirect) {
+               return window.location = redirect;
+            }
             location.reload();
         }, 1000);
     });

@@ -5,7 +5,9 @@
     <title>{{ trans('media::media.file picker') }}</title>
     {!! Theme::style('vendor/bootstrap/dist/css/bootstrap.min.css') !!}
     {!! Theme::style('vendor/admin-lte/dist/css/AdminLTE.css') !!}
-    {!! Theme::style('vendor/datatables.net-bs/css/dataTables.bootstrap.min.css') !!}
+
+    <link href="{{ Module::asset('stylestudio:admin.css') }}" rel="stylesheet" type="text/css" />
+
     <link href="{!! Module::asset('media:css/dropzone.css') !!}" rel="stylesheet" type="text/css" />
     <style>
         body {
@@ -94,19 +96,25 @@
                     <?php endif; ?>
                     </tbody>
                 </table>
+
+                <div class="col-sm-5">
+                </div>
+
+                <div class="col-sm-7 pagination-container">
+                    {!! $files->render() !!}
+                </div>
             </div>
         </div>
     </div>
 </div>
 {!! Theme::script('vendor/jquery/jquery.min.js') !!}
 {!! Theme::script('vendor/bootstrap/dist/js/bootstrap.min.js') !!}
-{!! Theme::script('vendor/datatables.net/js/jquery.dataTables.min.js') !!}
-{!! Theme::script('vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') !!}
 <script src="{!! Module::asset('media:js/dropzone.js') !!}"></script>
 <?php $config = config('asgard.media.config'); ?>
 <script>
     var maxFilesize = '<?php echo $config['max-file-size'] ?>',
-        acceptedFiles = '<?php echo $config['allowed-types'] ?>';
+        acceptedFiles = '<?php echo $config['allowed-types'] ?>',
+        redirect = '<?php echo route('media.grid.select'); ?>';
 </script>
 <script src="{!! Module::asset('media:js/init-dropzone.js') !!}"></script>
 <script>
@@ -119,19 +127,3 @@
 </script>
 
 <?php $locale = App::getLocale(); ?>
-<script type="text/javascript">
-    $(function () {
-        $('.data-table').dataTable({
-            "paginate": true,
-            "lengthChange": true,
-            "filter": true,
-            "sort": true,
-            "info": true,
-            "autoWidth": true,
-            "order": [[ 0, "desc" ]],
-            "language": {
-                "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
-            }
-        });
-    });
-</script>

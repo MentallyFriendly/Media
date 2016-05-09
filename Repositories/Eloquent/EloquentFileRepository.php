@@ -1,5 +1,6 @@
 <?php namespace Modules\Media\Repositories\Eloquent;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 use Modules\Media\Entities\File;
@@ -102,5 +103,15 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         $version++;
 
         return $fileNameOnly . '_' . $version . '.' . $extension;
+    }
+
+    /**
+     * @param int $per_page
+     *
+     * @return mixed
+     */
+    public function paginate($per_page = 10)
+    {
+        return $this->model->orderBy('id', 'desc')->paginate($per_page);
     }
 }
